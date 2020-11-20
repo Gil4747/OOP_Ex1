@@ -8,7 +8,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
  class TestJunit {
  private static Random _rnd = null;
-
+ /**
+  * Checks the amount of vertices in the graph.
+  */
   @Test
   void nodeSize() {
     weighted_graph g = new WGraph_DS();
@@ -22,8 +24,12 @@ import static org.junit.jupiter.api.Assertions.*;
     g.removeNode(4);
     int s = g.nodeSize();
     assertEquals(2,s);
+    
 	}
   @Test
+  /**
+   * Checks the amount of arcs in the graph.
+   */
   void edgeSize() {
       weighted_graph g = new WGraph_DS();
       g.addNode(0);
@@ -48,6 +54,9 @@ import static org.junit.jupiter.api.Assertions.*;
       assertEquals(x1, x2);
       assertEquals(x2, 2.0);
   }
+  /**
+   * Checks if there is no vertex that does not exist in the collection.
+   */
   @Test
   void getV() {
       weighted_graph g = new WGraph_DS();
@@ -78,6 +87,11 @@ import static org.junit.jupiter.api.Assertions.*;
           assertNotNull(node);
       }
   }
+  /**
+   *Checks whether the arc connection worked according to the following rules:
+   * Connect an edge between node1 and node2, with an edge with weight >=0. 
+   * if the edge node1-node2 already exists - the method simply updates the weight of the edge.
+   */
   @Test
   void connect() {
       weighted_graph g = new WGraph_DS();
@@ -109,6 +123,10 @@ import static org.junit.jupiter.api.Assertions.*;
       double x2 = g.getEdge(2,3);
       assertEquals(x2,1.4);
   }
+  /**
+   *Checks whether the vertex has been deleted from 
+   *the graph and so have all the arcs that were attached to it.
+   */
   @Test
   void removeNode() {
       weighted_graph g = new WGraph_DS();
@@ -134,7 +152,9 @@ import static org.junit.jupiter.api.Assertions.*;
       assertEquals(1,s);
       assertEquals(4,g.nodeSize());
   }
-
+  /**
+   * Checks that the arc has been deleted from the graph.
+   */
   @Test
   void removeEdge() {
       weighted_graph g = new WGraph_DS();
@@ -167,6 +187,9 @@ import static org.junit.jupiter.api.Assertions.*;
       double x2 = g.getEdge(1,2);
       assertEquals(x2,4.0);
   }
+  /**
+   * Checks that there is an arc between two specific vertices in the graph.
+   */
   @Test
   void hasEdge() {
       int n = 20;
@@ -180,6 +203,9 @@ import static org.junit.jupiter.api.Assertions.*;
           }
       }
   }
+  /**
+   * Checks that the graph is a link graph - that is, if there is an arc between any two vertices in the graph.
+   */
   @Test
   void isConnected() {
       weighted_graph g0 = WGraph_DSTest.graph_creator(0,0,1);
@@ -222,7 +248,9 @@ import static org.junit.jupiter.api.Assertions.*;
       boolean b=ag0.isConnected();
       assertTrue(b);
   }
-  
+  /**
+   * Examines the shortest path in a weighted graph from one vertex to another.
+   */
   @Test
   void shortestPathDist() {
       weighted_graph g0 = myGraph();
@@ -232,7 +260,9 @@ import static org.junit.jupiter.api.Assertions.*;
       double ans = ag0.shortestPathDist(0,10);
       assertEquals(ans, 3.4);
   }
-
+  /**
+   * Checking the vertices through them is the shortest way to get from one vertex to another.
+   */
   @Test
   void shortestPath() {
       weighted_graph g0 = myGraph();
