@@ -38,7 +38,14 @@ public class WGraph_Algo extends WGraph_DS implements weighted_graph_algorithms,
 		WGraph_DS cop=new WGraph_DS();
 		Iterator<node_info> x=this.Gds.getV().iterator();
 		while(x.hasNext()) {
-			cop.addNode(x.next().getKey());
+			node_info n=x.next();
+			cop.addNode(n.getKey());
+			Iterator<Integer> nI=this.Gds.getMapI().get(n.getKey()).edges.keySet().iterator();
+			while(nI.hasNext()) {
+				int nII=nI.next();
+				cop.getNodeI(n.getKey()).edges.put(nII, Gds.getEdge(n.getKey(), nII));
+			}
+			
 		}
 		return cop;
 	}

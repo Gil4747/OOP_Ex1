@@ -9,6 +9,17 @@ import static org.junit.jupiter.api.Assertions.*;
  class TestJunit {
  private static Random _rnd = null;
  /**
+  * Checking the copy of the graph.
+  */
+  @Test
+  void copy() {
+	  weighted_graph g= myGraph();
+      weighted_graph_algorithms ga = new WGraph_Algo();
+      ga.init(g);
+      weighted_graph cop=ga.copy();
+      assertEquals(cop,g);
+  }
+ /**
   * Checks the amount of vertices in the graph.
   */
   @Test
@@ -24,12 +35,11 @@ import static org.junit.jupiter.api.Assertions.*;
     g.removeNode(4);
     int s = g.nodeSize();
     assertEquals(2,s);
-    
 	}
-  @Test
   /**
    * Checks the amount of arcs in the graph.
    */
+  @Test
   void edgeSize() {
       weighted_graph g = new WGraph_DS();
       g.addNode(0);
@@ -208,17 +218,17 @@ import static org.junit.jupiter.api.Assertions.*;
    */
   @Test
   void isConnected() {
-      weighted_graph g0 = WGraph_DSTest.graph_creator(0,0,1);
+      weighted_graph g0=graph_creator(0,0,1);
       weighted_graph_algorithms ag0 = new WGraph_Algo();
       ag0.init(g0);
       assertTrue(ag0.isConnected());
       
-      g0 = WGraph_DSTest.graph_creator(0,0,1);
+      g0=graph_creator(0,0,1);
       ag0 = new WGraph_Algo();
       ag0.init(g0);
       assertTrue(ag0.isConnected());
 
-      g0 = WGraph_DSTest.graph_creator(1,0,1);
+      g0=graph_creator(1,0,1);
       ag0 = new WGraph_Algo();
       ag0.init(g0);
       assertTrue(ag0.isConnected());
@@ -284,7 +294,7 @@ import static org.junit.jupiter.api.Assertions.*;
       ag0.init(g0);
       String str = "g0.obj";
       ag0.save(str);
-      weighted_graph g1 = WGraph_DSTest.graph_creator(10,30,1);
+      weighted_graph g1 =graph_creator(10,30,1);
       ag0.load(str);
       assertEquals(g0,g1);
       g0.removeNode(0);
