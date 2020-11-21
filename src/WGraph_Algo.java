@@ -163,7 +163,7 @@ public class WGraph_Algo extends WGraph_DS implements weighted_graph_algorithms,
 			  Iterator<Integer> pathFirst=temp.edges.keySet().iterator();	  
 			  while(pathFirst.hasNext()) {
 				  int t=pathFirst.next();	  
-				  if(Gds.getNodeI(t).getTag()!=gray &&Gds.getNodeI(t).getTag()!=black && Gds.getNodeI(t).getDist()>temp.getDist()+Gds.getEdge(temp.getKey(), Gds.getNodeI(t).getKey())) {
+				  if(Gds.getNodeI(t).getTag()!=black && Gds.getNodeI(t).getDist()>temp.getDist()+Gds.getEdge(temp.getKey(), Gds.getNodeI(t).getKey())) {
 					  Gds.getNodeI(t).setTag(gray);
 					  Gds.getNodeI(t).setDist(temp.getDist()+Gds.getEdge(temp.getKey(), Gds.getNodeI(t).getKey()));
 					  queue.add(Gds.getNodeI(t));
