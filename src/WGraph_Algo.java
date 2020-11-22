@@ -22,17 +22,26 @@ public class WGraph_Algo extends WGraph_DS implements weighted_graph_algorithms,
 		 new WGraph_DS();
 		 this.array=new ArrayList<node_info>();
 	 }
+	 /**
+	     * Init the graph on which this set of algorithms operates on.
+	     * @param g
+	     */	 
 	@Override
 	public void init(weighted_graph g) {
 		this.Gds=(WGraph_DS)g;	
 	}
-
+	 /**
+     * Return the underlying graph of which this class works.
+     * @return
+     */
 	@Override
 	public weighted_graph getGraph() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.Gds;
 	}
-
+	/**
+     * Compute a deep copy of this weighted graph.
+     * @return
+     */
 	@Override
 	public weighted_graph copy() {
 		WGraph_DS cop=new WGraph_DS();
@@ -45,11 +54,14 @@ public class WGraph_Algo extends WGraph_DS implements weighted_graph_algorithms,
 				int nII=nI.next();
 				cop.getNodeI(n.getKey()).edges.put(nII, Gds.getEdge(n.getKey(), nII));
 			}
-			
 		}
 		return cop;
 	}
-
+	/**
+     * Returns true if and only if (iff) there is a valid path from EVREY node to each
+     * other node.
+     * @return
+     */
 	@Override
 	public boolean isConnected() {
 		if(Gds.getV().size()<2)
@@ -82,8 +94,13 @@ public class WGraph_Algo extends WGraph_DS implements weighted_graph_algorithms,
 	    }
 	      return true;      
 	 }
-	
-
+	/**
+     * returns the length of the shortest path between src to dest
+     * if no such path --> returns -1
+     * @param src - start node
+     * @param dest - end (target) node
+     * @return
+     */
 	@Override
 	public double shortestPathDist(int src, int dest) {
 		Gds.restDist();	
@@ -132,7 +149,14 @@ public class WGraph_Algo extends WGraph_DS implements weighted_graph_algorithms,
 		  return ansS.getDist()+ansD.getDist();
 			  
 	}
-
+	 /**
+     * returns the the shortest path between src to dest - as an ordered List of nodes:
+     * src--> n1-->n2-->...dest
+     * If no such path --> returns null;
+     * @param src - start node
+     * @param dest - end (target) node
+     * @return
+     */
 	@Override
 	public List<node_info> shortestPath(int src, int dest) {
 		if(!Gds.getMapI().containsKey(src) || !Gds.getMapI().containsKey(dest))
@@ -149,7 +173,7 @@ public class WGraph_Algo extends WGraph_DS implements weighted_graph_algorithms,
 		  PriorityQueue<nodeInfo> queue = new PriorityQueue<nodeInfo>(new Comparator<nodeInfo>() {
 		  @Override
 		  public int compare(nodeInfo o1, nodeInfo o2) {
-			 return - Double.compare(o2.getDist(),o1.getDist());
+			 return -Double.compare(o2.getDist(),o1.getDist());
 	      }
 		  });
 		  nodeInfo temp=(nodeInfo)Gds.getV().iterator().next();
@@ -181,7 +205,11 @@ public class WGraph_Algo extends WGraph_DS implements weighted_graph_algorithms,
 		  nodeInfo ans= Gds.getNodeI(dest);
 		  return ans.getLis();	 
 	  }
-	
+	/**
+	* Copies the list you receive.
+	* @param s -List of vertices.
+	* @return A copy of the list.
+	*/	
 private List<node_info> copyList( List<node_info> s) {
 	List<node_info> ans= new LinkedList<node_info>();
 	Iterator<node_info> x=s.iterator();
@@ -190,6 +218,12 @@ private List<node_info> copyList( List<node_info> s) {
 	}
 	return ans;
 }
+/**
+* Saves this weighted (undirected) graph to the given
+* file name
+* @param file - the file name.
+* @return true - iff the file was successfully saved
+*/
 	@Override
 	public boolean save(String file){
 		WGraph_Algo n=this;
@@ -207,7 +241,14 @@ private List<node_info> copyList( List<node_info> s) {
 	       }
 	        return true;
 	}
-
+	/**
+     * This method load a graph to this graph algorithm.
+     * if the file was successfully loaded - the underlying graph
+     * of this class will be changed (to the loaded one), in case the
+     * graph was not loaded the original graph should remain "as is".
+     * @param file - file name
+     * @return true - iff the graph was successfully loaded.
+     */
 	@Override
 	public boolean load(String file) {
 		try{
@@ -221,7 +262,11 @@ private List<node_info> copyList( List<node_info> s) {
 		}
 		        return true;
 		    }
-
+	/**
+	* Checking the equality between two graphs.
+	* @param sec-WGraph_Algo.
+	* @return true - If the graphs are equal.
+	*/
 	public boolean equals(WGraph_Algo sec) {
 		WGraph_DS second=sec.Gds;
 		WGraph_DS first=this.Gds;

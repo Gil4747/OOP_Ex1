@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Scanner;
 
 public class WGraph_DS implements weighted_graph,java.io.Serializable{
-//	private nodeInfo[] nodes;
 	private HashMap<Integer,node_info> mapi;
 	private HashMap<Integer,nodeInfo> mapI;
 	private static int ModeCount=0;
@@ -99,13 +98,13 @@ public class WGraph_DS implements weighted_graph,java.io.Serializable{
     @SuppressWarnings("static-access")
 	@Override
     public void connect(int node1, int node2, double w) {
-    	if(hasEdge(node1,node2)) {
+    	if(hasEdge(node1,node2) && getEdge(node1, node2)!=w) {
     	    mapI.get(node1).edges.put(node2,w);
        	    mapI.get(node2).edges.put(node1,w);
        	    ModeCount++;
     	}
     	else {
-    	if(mapI.containsKey(node1) && mapI.containsKey(node2) && w!=0) {
+    	if(!hasEdge(node1, node2)&&mapI.containsKey(node1) && mapI.containsKey(node2) && w>=0) {
     	if(node1!=node2) {
     	    mapI.get(node1).edges.put(node2,w);
     	    mapI.get(node2).edges.put(node1,w);
@@ -203,8 +202,10 @@ public class WGraph_DS implements weighted_graph,java.io.Serializable{
     public int getMC() {
     	return ModeCount;
     }
+    /**
+     * Goes over the entire graph and inserts into each vertex tag 0 and infinite distance.
+     */
     public void restDist() {
-    	// TODO Auto-generated method stub
     	Iterator<nodeInfo> it=mapI.values().iterator();
     	while(it.hasNext()) {
     		nodeInfo n=(nodeInfo)it.next();
@@ -254,40 +255,79 @@ public class nodeInfo implements node_info,java.io.Serializable{
 		 List<node_info> l=new ArrayList<node_info>();
 		 this.Lis=l;
 	 }
+	 /**
+	     * Return the key (id) associated with this node.
+	     * each node_data have a unique key.
+	     * @return
+	     */ 
 	 public int getKey() {
 		 return this.key;
 	 }
-	 public void setKey(int key) {
-		 this.key=key;
-	 }
+	 /**
+	     * return the remark (meta data) associated with this node.
+	     * @return
+	     */
 	 public String getInfo() {
 		 return this.info;
 	 }
+	 /**
+	     * Allows changing the remark (meta data) associated with this node.
+	     * @param s
+	     */
 	 public void setInfo(String s) {
 		 this.info=s;
 	 }
+	 /**
+	     * Temporal data (aka distance, color, or state)
+	     * which can be used be algorithms
+	     * @return
+	     */
 	 public double getTag() {
 		 return this.tag;
 	 }
+	 /**
+	     * Allow setting the "tag" value for temporal marking an node - common
+	     * practice for marking by algorithms.
+	     * @param t - the new value of the tag
+	     */
 	 public void setTag(double t) {
 		 this.tag=t;
 	 }
+	 /**
+	     * Set the distance from the current vertex to the vertex from which we start the trajectory.
+	     * @param t - the new value of the tag.
+	     */	 
 	 public void setDist(double t) {
 		   this.dist=t;
 	 }
+	 /**
+	     * Gives the distance from the current vertex to the vertex from which we start the trajectory.
+	     * @return
+	     */	 
 	 public double getDist() {
 		   return this.dist;
 	}
+	 /**
+	     * Gives the list of vertices from the start vertex of any trajectory to it.
+	     * @return
+	     */	 
 	 public List<node_info> getLis() {
 			return Lis;
 		 }
+	 /**
+	     * Inserts a list of vertices from the vertex of the start of a particular trajectory to the vertex itself.
+	     * @param lis - The list of vertices.
+	     */	 
 		  public void setLis(List<node_info> lis) {
 			Lis = lis;
 		  }
 }
-
+/**
+ * Tests equality between two weighted graphs.
+ * @return Returns true if the graphs are equal
+ * @param second
+ */	 
 public boolean equals(Object second) {
-	//if(this==second)return true;
 	WGraph_DS sec=(WGraph_DS)second;
 	boolean yah=true;
 	if(this.getMapI().size()!=sec.getMapI().size()) {

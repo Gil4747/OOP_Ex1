@@ -111,7 +111,6 @@ import static org.junit.jupiter.api.Assertions.*;
       g.addNode(3);
       g.addNode(4);
       g.addNode(5);
-      int x=g.getMC();
       g.connect(0,1,1.0);
       g.connect(1,0,1.0);
       g.connect(1,2,4.0);
