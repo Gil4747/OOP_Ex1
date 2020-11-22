@@ -16,11 +16,11 @@ public class WGraph_Algo extends WGraph_DS implements weighted_graph_algorithms,
 	 public static final int white = 0;
 	 public static final int gray = 1;
 	 public static final int black = 2;
-	 ArrayList<node_info> array = new ArrayList<node_info>();
+	
 
 	 public WGraph_Algo() {
 		 new WGraph_DS();
-		 this.array=new ArrayList<node_info>();
+		
 	 }
 	 /**
 	     * Init the graph on which this set of algorithms operates on.
