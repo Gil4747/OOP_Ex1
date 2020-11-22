@@ -15,6 +15,7 @@ info -  remark (meta data) associated with this node.
 Lis - Java List to be use in one of the algo.
 tag - for algorithems use.
 dist - for algorithems use.
+id - static int var used to attach each node uniqe key.
 
  Methods:
  
